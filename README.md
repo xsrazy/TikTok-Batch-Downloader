@@ -4,6 +4,8 @@ A simple Node.js CLI tool to download multiple TikTok videos without a watermark
 
 **Prefer the web version?** Use [TikBulk](https://tikbulk.xsrazy.web.id), the same bulk downloader in your browser, no install needed.
 
+**Indonesian version:** [README.id.md](README.id.md)
+
 ![Screenshot](xsrazy.png)
 
 ## About
