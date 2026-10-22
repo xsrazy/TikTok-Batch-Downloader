@@ -1,57 +1,63 @@
+# TikTok Batch Downloader
 
+A simple Node.js CLI tool to download multiple TikTok videos without a watermark, complete with metadata export and automatic error handling.
 
-# 🎬 TikTok Batch Downloader (No Watermark)
+**Prefer the web version?** Use [TikBulk](https://tikbulk.xsrazy.web.id), the same bulk downloader in your browser, no install needed.
 
-🌐 Available in other languages: [Bahasa Indonesia](README.id.md)
+![Screenshot](xsrazy.png)
 
-![Node.js](https://img.shields.io/badge/Node.js-12%2B-green)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-![Status](https://img.shields.io/badge/status-active-brightgreen)
-![GitHub stars](https://img.shields.io/github/stars/xsrazy/TikTok-Batch-Downloader?style=social)
-![GitHub forks](https://img.shields.io/github/forks/xsrazy/TikTok-Batch-Downloader?style=social)
-![GitHub last commit](https://img.shields.io/github/last-commit/xsrazy/TikTok-Batch-Downloader)
+## About
 
----
+TikTok Batch Downloader reads a list of TikTok video links from a plain text file and downloads every video in one run. Each download lands in its own folder together with a metadata file, so the result stays organized and easy to archive, back up, or analyze later.
 
-A simple Node.js CLI tool to download multiple TikTok videos without watermarks, complete with metadata export and automatic error handling.
+## Features
 
-**Prefer the web version?** Use [TikBulk](https://tikbulk.xsrazy.web.id): the same bulk downloader in your browser, no install needed.
+- Downloads TikTok videos without a watermark, in HD when available
+- Batch processing from a simple `links.txt` file, one link per line
+- Metadata export to JSON for every downloaded video
+- Automatic error logging, so one failed link never stops the whole batch
+- Clean output structure, one folder per video
 
-![Screen Shot!](xsrazy.png)
+## How it works
 
----
+1. The tool reads every link from `links.txt`
+2. For each link, video data is fetched from the tikwm.com API
+3. The video file is downloaded into its own folder under `downloads/`
+4. A `metadata.json` file is written next to each video
+5. Any error is logged and the batch continues with the next link
 
-## 🚀 Features
-
-- 🎥 Download TikTok videos without watermarks
-- ⏳ Batch process using `links.txt`
-- 📊 Metadata export (in JSON format)
-- 🚫 Automatic error logging
-- 📁 Clean folder structure
-
-## 💡 How to Use
+## Setup
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/xsrazy/TikTok-Batch-Downloader
-   cd TikTok-Batch-Downloader
-   ```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/xsrazy/TikTok-Batch-Downloader
+cd TikTok-Batch-Downloader
+```
 
-3. Add all video links to the `links.txt` file.
+2. Install the dependencies:
+
+```bash
+npm install
+```
+
+3. Add your video links to `links.txt`, one per line:
+
+```
+https://www.tiktok.com/@user/video/1234567890123456789
+https://www.tiktok.com/@anotheruser/video/9876543210987654321
+```
 
 4. Run the tool:
-   ```bash
-   node main.js
-   ```
 
----
+```bash
+node main.js
+```
 
-## 📁 Output Structure
+Requires Node.js 12 or newer.
+
+## Output
+
 ```
 downloads/
 ├── video_1/
@@ -63,70 +69,42 @@ downloads/
 ...
 ```
 
-### 🔍 Contents of `metadata.json`
-Each video will come with a `metadata.json` file containing detailed information:
+### Contents of metadata.json
 
-| Field            | Description                                        |
-|------------------|----------------------------------------------------|
-| `id`             | Unique ID of the TikTok video                      |
-| `url`            | Full URL of the video                              |
-| `author`         | Username (e.g., `@xsrazy`)                         |
-| `description`    | Caption or text content of the video               |
-| `hashtags`       | List of hashtags in the video (`#tag`)             |
-| `music`          | Title or source of the audio                       |
-| `created_at`     | Upload date of the video (ISO format)              |
-| `stats.plays`    | Number of views                                    |
-| `stats.likes`    | Number of likes                                    |
-| `stats.comments` | Number of comments                                 |
-| `stats.shares`   | Number of shares                                   |
-| `downloaded_at`  | Time when the video was downloaded using this tool |
+| Field | Description |
+| --- | --- |
+| `id` | Unique ID of the TikTok video |
+| `description` | Caption or text content of the video |
+| `createTime` | Upload date of the video |
+| `author.username` | Author username, for example `@xsrazy` |
+| `author.nickname` | Author display name |
+| `stats.plays` | Number of views |
+| `stats.likes` | Number of likes |
+| `stats.comments` | Number of comments |
+| `stats.shares` | Number of shares |
+| `video.duration` | Video length in seconds |
+| `video.width` / `video.height` | Video resolution |
+| `video.hdUrl` | Direct HD video URL used for the download |
+| `music.title` | Title of the audio used in the video |
+| `music.author` | Author of the audio |
+| `hashtags` | List of hashtags in the video |
 
----
+## Collecting links
 
-## 📋 Example of `links.txt`
-```
-https://www.tiktok.com/@user/video/1234567890123456789
-https://www.tiktok.com/@anotheruser/video/9876543210987654321
-```
+No coding needed: the [Link Grabber](https://chromewebstore.google.com/detail/link-grabber/caodelkhipncidmoebgbbeemedohcdma) Chrome extension can copy every video link from a TikTok page (profile, hashtag, or FYP). Paste the copied links into `links.txt` and run the tool.
 
----
+## Notes
 
-## 🧩 How to Grab Video Links Easily 
+- Links must be valid and the videos public, not private
+- Avoid downloading thousands of videos in a single batch; keep batch sizes reasonable
+- Intended for archiving, educational purposes, and personal backups
 
-No need to code — just use this Chrome extension:
+## Credits
 
-🔗 [Link Grabber (by Google)](https://chromewebstore.google.com/detail/link-grabber/caodelkhipncidmoebgbbeemedohcdma)
+Created by [@xsrazy](https://github.com/xsrazy).
 
-**Steps:**
+## License
 
-1. Open any TikTok page (profile, hashtag, FYP, etc.)
-2. Click the Link Grabber icon
-3. Copy all the video links shown
-4. Paste them into the links.txt file
-
-## 🧠 Tips
-- Make sure the links are valid and the videos are public (not private)
-- Avoid downloading thousands of videos at once (limit the batch size)
-- Use it for archiving, educational purposes, or personal backups
-- You can use a Link Grabber extension or a custom scraper to gather video links
-
-## 💻 Created by
-**[@xsrazy](https://github.com/xsrazy)** — open-source enthusiast  
-Feel free to fork, star ⭐, and contribute!
-
-## 📣 Release
-🎉 **First Release:** `v1.0.0`
-- TikTok downloader CLI without watermarks
-- Batch processing
-- JSON metadata export
-- Duplicate detection and error logging
-
-> Ready to use for content creators, video backups, or personal analysis!
-
-## 🧾 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
-
-MIT License – see the [LICENSE](LICENSE) file for details.
-
----
+MIT. See [LICENSE](LICENSE).
 
 <a href="https://www.buymeacoffee.com/xsrazy" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
